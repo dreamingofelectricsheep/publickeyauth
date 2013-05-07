@@ -4,3 +4,12 @@
 [submodule "jwcrypto"]
 	path = jwcrypto
 	url = https://github.com/mozilla/jwcrypto.git
+[submodule "server/jwcrypto"]
+	path = server/jwcrypto
+	url = https://github.com/mozilla/jwcrypto.git
+[submodule "chromium-extension/jwcrypto"]
+	path = chromium-extension/jwcrypto
+	url = https://github.com/mozilla/jwcrypto.git
+[submodule "chromium-extension/tags"]
+	path = chromium-extension/tags
+	url = https://github.com/dreamingofelectricsheep/tags.js.git
