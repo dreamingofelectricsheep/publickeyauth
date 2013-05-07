@@ -1,6 +1,6 @@
 [submodule "tags"]
 	path = tags
-	url = git@github.com:dreamingofelectricsheep/tags.js.git
+	url = https://github.com/dreamingofelectricsheep/tags.js.git
 [submodule "jwcrypto"]
 	path = jwcrypto
 	url = https://github.com/mozilla/jwcrypto.git
@@ -12,4 +12,7 @@
 	url = https://github.com/mozilla/jwcrypto.git
 [submodule "chromium-extension/tags"]
 	path = chromium-extension/tags
+	url = https://github.com/dreamingofelectricsheep/tags.js.git
+[submodule "server/tags"]
+	path = server/tags
 	url = https://github.com/dreamingofelectricsheep/tags.js.git
