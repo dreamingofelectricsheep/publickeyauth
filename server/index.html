@@ -36,9 +36,9 @@ function sendAuthedToken(token)
 	req.send(token)
 	req.onreadystatechange = function()
 	{
-//		if(this.readyState == 4)
+		if(this.readyState == 4)
 			// We rely on the backend setting a cookie.
-//			location.reload()
+			location.reload()
 	}
 }
 

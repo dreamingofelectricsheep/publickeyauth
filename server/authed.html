@@ -1,0 +1,30 @@
+<html>
+<head>
+<title>Public Key Auth</title>
+<link href="css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="tags/module.js"></script>
+<script type="text/javascript" src="tags/tags.js"></script>
+<script type="text/javascript">
+
+module('main', function(tags) {
+
+var logout = tags.div({ class: 'button' }, 'Logout')
+
+tags.append(tags.body, tags.div({ class: 'welcome' }, 
+	'Congratulations, you are logged in!'),
+	logout)
+
+
+logout.onclick = function() 
+{
+	document.cookie = 'auth='
+	location.reload()
+}
+
+
+})
+</script>
+</head>
+<body>
+</body>
+</html>

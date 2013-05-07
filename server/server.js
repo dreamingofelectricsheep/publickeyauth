@@ -8,11 +8,17 @@ var page_path =
 {
 	'/css': 'style.css',
 	'/': 'index.html',
+	'/authed': 'authed.html',
 	'/tags/module.js': 'tags/module.js',
 	'/tags/tags.js': 'tags/tags.js'
 }
 
-var pages = {}
+function getPage(p)
+{
+	p = page_path[p]
+	if(p != undefined)
+		return fs.readFileSync(p)
+}
 
 var publicKeys = {}
 var cookies = {}
@@ -52,10 +58,12 @@ http.createServer(function (req, res)
 							function(err, payload)
 							{
 								if(!err) console.log('Verified token!')
+								console.log(payload)
 
-								crypto.randomBytes(10, 
+								crypto.randomBytes(30, 
 									function(e, buf)
 									{
+										console.log('Got random.')
 										var cookie = buf.toString('base64')
 										cookies[cookie] = payload.publicKey
 										publicKeys[payload.publicKey] = ''
@@ -68,20 +76,34 @@ http.createServer(function (req, res)
 									})
 							})
 					})
+				break;
 			
+			case '/':
+				console.log(req.headers.cookie)
+
+				res.writeHead(200, {'Content-Type': 'text/html'})
+
+				var cookie = req.headers.cookie
+				if(cookie != undefined)
+				{
+					cookie = cookie.split(';')
+					cookie = cookie.map(function(v) { return v.trim().split('=') })
+					var c = {}
+					cookie.map(function(v) { c[v[0]] = v[1] })
+					cookie = c['auth']
+				}
+
+				console.log('Auth: ' + cookie)
+
+				if(cookies[cookie] != undefined)
+					res.end(getPage('/authed'))
+				else
+					res.end(getPage('/'))
+				break;
+
 			default:
 			{
-				for(var i in page_path)
-				{
-					(function(k, v) {
-						fs.readFile(v, function(err, data)
-							{
-								pages[k] = data
-							})
-						})(i, page_path[i])
-				}		
-
-				var body = pages[req.url]
+				var body = getPage(req.url)
 				var code = body == undefined ?
 					404 : 200
 
