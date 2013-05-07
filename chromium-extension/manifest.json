@@ -13,6 +13,13 @@
 	{
 		"page": "keyserver.html"
 	},
+	"content_scripts":
+	[
+		{
+			"matches": ["http://*/*"],
+			"js": ["keyserverrelay.js"]
+		}
+	],
 	"offline_enabled": true,
 	"permissions":
 	[

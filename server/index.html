@@ -1,15 +1,64 @@
 <html>
 <head>
 <title>Public Key Auth</title>
-<script type="text/javascript" src="jwcrypto/bidbundle.js"></script>
-<script type="text/javascript" src="keyserver.js"></script>
+<link href="css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="tags/module.js"></script>
+<script type="text/javascript" src="tags/tags.js"></script>
 <script type="text/javascript">
 
+function publicKeyAuth(challenge, callback)
+{
+	var fn = function(event)
+	{
+		if(event.data.type != 'publicKeyAuthRelay') return
 
+		callback(event.data.token)
+		window.removeEventListener('message', fn)
+	}
+
+	window.postMessage({ type: 'publicKeyAuthClient', challenge: challenge }, '*')
+	window.addEventListener('message', fn)
+}
+
+module('main', function(tags) {
+
+var signup = tags.div({ class: 'button' }, 'Signup'),
+	login = tags.div({ class: 'button' }, 'Login')
+
+tags.append(tags.body, tags.div({ class: 'welcome' }, 
+	'Welcome to the example Public Key Auth page!'),
+	signup, login)
+
+function sendAuthedToken(token)
+{
+	var req = new XMLHttpRequest()
+	req.open('POST', 'login')
+	req.send(token)
+	req.onreadystatechange = function()
+	{
+//		if(this.readyState == 4)
+			// We rely on the backend setting a cookie.
+//			location.reload()
+	}
+}
+
+signup.onclick = login.onclick = function() 
+{
+	var req = new XMLHttpRequest()
+	req.open('GET', 'challenge')
+	req.send()
+	req.onreadystatechange = function()
+	{
+		if(this.readyState == 4)
+		{
+			publicKeyAuth(req.responseText, sendAuthedToken)
+		}
+	}
+}
+
+
+})
 </script>
-<style type="text/css">
-
-</style>
 </head>
 <body>
 </body>

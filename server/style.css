@@ -1,0 +1,28 @@
+body
+{
+	background: #6DC9B4;
+	color: white;
+	text-align: center;
+	padding: 10%;
+	font: sans-serif;
+}
+.welcome
+{
+	font-size: 2em;
+	margin: 1em;
+}
+.button
+{
+	font: 1em sans-serif;
+	font-weight: bold;
+	color: white;
+	text-decoration: none;
+	background: #1D594B;
+	margin: 1em;
+	padding: 0.5em 2em;
+	border-radius: 0.3em;
+	cursor: pointer;
+	display: inline-block;
+}
+
+
