@@ -1,0 +1,6 @@
+[submodule "tags"]
+	path = tags
+	url = git@github.com:dreamingofelectricsheep/tags.js.git
+[submodule "jwcrypto"]
+	path = jwcrypto
+	url = https://github.com/mozilla/jwcrypto.git
